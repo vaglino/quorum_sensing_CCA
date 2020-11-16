@@ -7,16 +7,18 @@ addpath(genpath(folder));
 
 %% parameters
 g = struct;  % struture with geometrical parameters
-g.nx = 100;                           % Number of steps in space(x)
-g.ny = 100;                           % Number of steps in space(y)
-g.dx=2/(g.nx-1);                     % Width of space step(x)
-g.dy=2/(g.ny-1);                     % Width of space step(y)
-g.x=0:g.dx:2;                        % Range of x(0,2) and specifying the grid points
-g.y=0:g.dy:2;                        % Range of y(0,2) and specifying the grid points
+g.h = 2;
+g.w = 2;
+g.nx = 300;                           % Number of steps in space(x)
+g.ny = 300;                           % Number of steps in space(y)
+g.dx=g.w/(g.nx-1);                     % Width of space step(x)
+g.dy=g.h/(g.ny-1);                     % Width of space step(y)
+g.x=0:g.dx:g.w;                        % Range of x(0,2) and specifying the grid points
+g.y=0:g.dy:g.h;                        % Range of y(0,2) and specifying the grid points
 
 p = struct;  % structure with other parameters
-p.nt = 100;                          % Number of time steps 
-p.dt = 0.01;                         % Width of each time step
+p.nt = 200;                          % Number of time steps 
+p.dt = 0.03;                         % Width of each time step
 p.n_states = 4;                      % number of states
 p.diff = 0.1;                         % Diffusion coefficient/viscocity
 p.gamma = 0.01;                      % decay rate
@@ -40,10 +42,10 @@ BC_type = "Neumann";
 
 %% initial conditions
 
-colonies = rand(g.nx,g.ny) >= 0.9; % 10% of squares are colonies 
-states = randi([1, 1],g.nx,g.ny) .* colonies; % start with all colonies in state 1
+colonies = rand(g.nx,g.ny) >= 0.8; % 10% of squares are colonies 
+% states = randi([1, 1],g.nx,g.ny) .* colonies; % start with all colonies in state 1
 % uncomment to start with colonies in random state...
-% states = randi([1, p.n_states],g.nx,g.ny) .* colonies; 
+states = randi([1, p.n_states],g.nx,g.ny) .* colonies; 
 
 % define boundary conditions
 bc = define_bc(g,p,BC_type,Neu); % use neumann boundary conditions
