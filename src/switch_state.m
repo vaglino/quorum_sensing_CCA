@@ -4,6 +4,7 @@ function states = switch_state(states,n_states,positive)
     % 1->2->3->1... 
     % this is mathematically equivalent to (i-1 modulo 3) + 1
     
-    new_states = mod(states(positive),n_states)+1; 
+    new_states = mod(states(positive),n_states)+1;
+%     new_states = next_state(states(positive),n_states);
     states(positive) = new_states;
 end
