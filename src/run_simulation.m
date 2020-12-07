@@ -1,8 +1,14 @@
 function run_simulation(u,D,bc,states,g,p,BC_type,bounds)
 
+h = figure(1);
+axis tight manual % this ensures that getframe() returns a consistent size
+filename = 'CCA_simulation.gif';
+
 for t=0:p.nt % at every time step
     
-    
+%     if t==1
+%         t=t
+%     end
     subplot(3,2,p.n_states+1)
     plot_superimposed(g.x,g.y,states,g,p,t)
     
@@ -26,6 +32,7 @@ for t=0:p.nt % at every time step
     % update colonies to new states
     states = switch_state(states,p.n_states,positive_colonies);
     
+    write_to_gif(h,filename,t)
     
 end
 end
