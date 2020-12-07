@@ -1,5 +1,5 @@
 clear all
-close all
+clf
 % Determine where your m-file's folder is.
 folder = fileparts(which(mfilename)); 
 % Add that folder plus all subfolders to the path.
@@ -17,11 +17,11 @@ g.x=0:g.dx:g.w;                        % Range of x(0,2) and specifying the grid
 g.y=0:g.dy:g.h;                        % Range of y(0,2) and specifying the grid points
 
 p = struct;  % structure with other parameters
-p.nt = 200;                          % Number of time steps 
-p.dt = 0.03;                         % Width of each time step
+p.nt = 100;                          % Number of time steps 
+p.dt = 0.02;                         % Width of each time step
 p.n_states = 4;                      % number of states
-p.diff = 0.1;                         % Diffusion coefficient/viscocity
-p.gamma = 0.01;                      % decay rate
+p.diff = 0.05;                         % Diffusion coefficient/viscocity
+p.gamma = 0.001;                      % decay rate
 p.production_rate = 0.2;             % rates at which bacteria produces AI
 p.thresh = 0.3;                      % AI sensing threshold
 
@@ -39,6 +39,8 @@ Neu.UN=0;                            % y=L Neumann B.C (du/dn=UnN)
 
 BC_type = "Neumann";
 % BC = "Dirichlet"
+
+F = p.diff * p.dt / (g.dx*g.dy)
 
 %% initial conditions
 
